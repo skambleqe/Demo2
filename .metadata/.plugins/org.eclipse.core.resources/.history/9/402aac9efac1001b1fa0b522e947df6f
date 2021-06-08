@@ -1,0 +1,17 @@
+package TestCases;
+
+import org.testng.annotations.Test;
+
+import DemoBaseClass.BaseDemo;
+import PagesSalesforce.LoginPage;
+
+public class TC_LoginPage_001 extends BaseDemo{
+
+	@Test
+	public void loginPgTest() {
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.setUserName(username);
+		loginPage.setPassword(password);
+		loginPage.subminLoginBtn();
+	}
+}

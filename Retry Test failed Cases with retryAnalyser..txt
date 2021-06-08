@@ -1,0 +1,74 @@
+Retry Test Cases Failed Execution:
+1.Copy the retry class[Which implement IRetryAnalyser interface] from TestNg Documentation.
+2.Bind the above with Test case Class by @Test(retryAnalyser='retry.class')
+
+package Common;
+
+import org.testng.IRetryAnalyzer;
+import org.testng.ITestResult;
+ 
+public class Retry implements IRetryAnalyzer {
+ 
+  private int retryCount = 0;
+  private static final int maxRetryCount = 3;
+ 
+  public boolean retry(ITestResult result) {
+    if (retryCount < maxRetryCount) {
+      retryCount++;
+      return true;
+    }
+    return false;
+  }
+}
+
+
+package ui;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import Common.BaseTest;
+
+public class DemoListener extends BaseTest {
+
+	@Test(retryAnalyzer = Common.Retry.class)
+	public void launchApp() {
+		driver.get("https://www.ebay.com/");
+		Assert.assertTrue(false);
+	}
+}
+
+But If we have 100's of Test cases then we need to add @Test(retryAnalyzer = Common.Retry.class) for all methods. This is not a good practice.
+So for that we need to Create class with implements IAnnotationTransformer interface and add unimplemented method.we need to call 
+iAnnotation.setRetryAnalyser(Retry.class).
+then remove @Test(retryAnalyzer = Common.Retry.class) from test case class.
+
+package Common;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+import org.testng.IAnnotationTransformer;
+import org.testng.annotations.ITestAnnotation;
+
+public class RetryListener implements IAnnotationTransformer{
+
+	public void transform(ITestAnnotation annotation, Class testClass,Constructor testConstructor, Method testMethod) {
+		annotation.setRetryAnalyzer(Retry.class);	
+	}
+
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Retry Listener">
+	<listeners>
+	<listener class-name="Common.RetryListener"></listener>
+	</listeners>
+	<test name="Retry Listener">
+		<classes>
+			<class name="ui.DemoListener" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

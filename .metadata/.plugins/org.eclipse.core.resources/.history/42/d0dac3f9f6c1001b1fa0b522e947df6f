@@ -1,0 +1,8 @@
+package PagesSalesforce;
+
+import DemoBaseClass.BaseDemo;
+
+public class LoginPage extends BaseDemo{
+
+	
+}

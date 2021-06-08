@@ -1,0 +1,25 @@
+package DemoBaseClass;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+
+public class BaseDemo {
+
+	public String urlBase = "https://login.salesforce.com/";
+	public String username = "sandip_kamble@silvermicrosystems.com";
+	public String password = "silvermicrosystems@2021";
+	public static WebDriver driver;
+	
+	@BeforeClass
+	public static void setUp() {
+		System.setProperty("webdriver.chrome.driver", null);
+		driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+	}
+}

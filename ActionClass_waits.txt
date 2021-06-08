@@ -1,0 +1,59 @@
+Action Class:
+moveToElement()
+contextClick()
+dragAndDrop()
+moveToElement()   :Move on specific location
+keyDown(target,keys.Control).sendKeys("a").build().perform();   //Sequence of steps:-build() use for build whole steps.
+
+Sometime there is issue related to synchronisation,thats why not able to inract with respective element.
+eg:if we mouseover over any link & wants to click on any any section on it. It might be synchronise issue.
+then we use wait()/Sleep()
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);  //This is aplicable for All webelements which specified in page. if element found uploaded within given time, then it will go for next.
+
+WebDriverWait wait = new WebDriverWait(driver,10);   //This is applicable for specific element with condition.  Its Depricated: 
+WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));  //Introduced Duration Class method.
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"mainContent\"]/div[1]/ul/li[6]/div[2]/div[1]/nav[1]/ul/li[8]/a"))).click();
+
+Works on Table:
+Steps:
+1.Switch to the respective Frame of table if available.
+2.Get the no. of rows.
+3.Get the no. of cols.
+4.Iterate no. of rows and cols & get the Text & print it.
+
+package ui;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
+public class TableHandle {
+
+	public static void main(String[] args) throws InterruptedException {
+		//System.setProperty("webdriver.chrome.driver", "C:\\DriverBrowser\\chromedriver.exe");
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www2.asx.com.au/");
+		driver.manage().window().maximize(); 	
+		
+		//WebElement table = driver.findElement(By.xpath("//*[@id=\"home_top_five\"]/div/div/div/div[1]/table"));
+		java.util.List<WebElement> rowElements= driver.findElements(By.xpath("//*[@id=\"home_top_five\"]/div/div/div/div[1]/table/tbody/tr"));
+		int rowSize=rowElements.size();
+		java.util.List<WebElement> colsElements= driver.findElements(By.xpath("//*[@id=\"home_top_five\"]/div/div/div/div[1]/table/tbody/tr[1]/td"));
+		int colsSize = colsElements.size();
+		System.out.println(rowSize);
+		System.out.println(colsSize);
+		
+		for(int r=1;r<rowSize;r++) {
+			for( int c=1;c<colsSize;c++) {
+				System.out.print(driver.findElements(By.xpath("//*[@id=\"home_top_five\"]/div/div/div/div[1]/table/tbody/tr[r]/td[c]")));
+			}
+			System.out.println();
+		}
+	}
+
+}
+
+		
+ 

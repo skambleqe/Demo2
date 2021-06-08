@@ -1,0 +1,30 @@
+package TestCases;
+
+//import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import DemoBaseClass.BaseDemo;
+import PagesSalesforce.LoginPage;
+
+public class TC_LoginPage_001 extends BaseDemo{
+
+	@Test
+	public void loginPgTest() throws InterruptedException {
+		driver.get(urlBase);
+		
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.setUserName(username);
+		loginPage.setPassword(password);
+		loginPage.subminLoginBtn();
+		Thread.sleep(2000);
+		loginPage.clickRemind();
+		Thread.sleep(5000);
+		loginPage.clickApplaunch();
+		/*if(driver.getTitle().equals("Login | Salesforce")) {
+			Assert.assertTrue(true);
+		}
+		else {
+			Assert.assertTrue(false);
+		}*/
+	}
+}

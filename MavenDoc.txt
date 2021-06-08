@@ -1,0 +1,312 @@
+//*[@id="input-145-1-145"]/span[2]
+
+
+ROBOT Framework
+
+xpath Methods:
+1.startswith()
+2.contains()
+3.text()
+
+xpath AND & OR operators:
+Syntax:
+//tagName[@Attribute='Value' AND @Attribute='Value']
+
+Maven: Its dependency tool which need to install to add dependency.
+If we have 3 Developers & out of that one would be the install latest version Webbrowser jar. then there will be the need to install others same version. 
+so to resolve this things Maven can be used.
+
+--Maven Dependency : by Download Maven then create Maven project & add dependencies from Maven Repository.
+
+Steps for WebDriverManager by Maven:
+1.Add Dependency from MavenRepository by search 'WebDriverManager'.
+2.Add 'WebDriverManager.chromedriver().setup()' instead of System.setProperty() in Class.[Note:No need to use WebBrowser]
+
+package ui;
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class DemoClass2 {
+
+	public static void main(String[] args) {
+		//System.setProperty("webdriver.chrome.driver", "C:\\DriverBrowser\\chromedriver.exe");
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver=new ChromeDriver();
+		driver.get("https://www.ebay.com/");
+		driver.manage().window().maximize();
+        driver.findElement(By.xpath("//*[@id=\"gh-ac\"]")).sendKeys("Mobile");
+        //thread.sleep(2000);
+        driver.findElement(By.xpath("//*[@id=\"gh-btn\"]")).click();
+        driver.close();
+	}
+
+}
+
+Reative Locators:above(),below(),toRightOf(),toLeftOf(),near()::Need to add dependency for selenium java 4.0.alfa 5 in POM file of Maven.
+
+package ui;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import static org.openqa.selenium.support.locators.RelativeLocator.withTagName;
+public class DemoClass2 {
+
+	public static void main(String[] args) {
+		//System.setProperty("webdriver.chrome.driver", "C:\\DriverBrowser\\chromedriver.exe");
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver=new ChromeDriver();
+		driver.get("https://www.saucedemo.com/");
+		driver.manage().window().maximize();
+		driver.findElement(By.id("user-name")).sendKeys("standard_user");
+		//thread.sleep(2000);
+		driver.findElement(By.id("password")).sendKeys("secret_sauce");
+
+		WebElement passwordField=driver.findElement(By.id("password"));
+		driver.findElement(withTagName("input").below(passwordField)).click();
+        driver.close();
+	}
+
+}
+
+
+
+Xpath: Axes Method:If we have difficulty to access any web eememnt due to less attributes. then we can use axes methods.
+Parent Node:- //tagName[@Attribute='Value']//Parent::tagName
+ChildNode:- //tagName[@Attribute='Value']//Child::tagName
+Self:- //tagName[@Attribute='Value']//Child::Self
+E.G:-//select[@name="user[country]"]//parent::form
+
+
+2.Descendant & Descenadant-or-self:
+  //div[@class="signup_container"]//descendant-or-self::div
+//div[@class='signup_container']//descendant-or-self::div[@class='signup_section']
+//*[@class='signup_container']//descendant-or-self::div[@class='signup_section']
+
+3.ancestor & ancestor-or-self: Same as above it selct context of ancesroe and parent
+
+4. following & folowing-sibling
+eg:- //option[@value='Developer']//following-sibling::option
+Used to select context node after the current node which related to either same parent or other parents.
+sibling:select only those following node which related to same parent.
+
+5.preceding & preceding-sibling:
+
+
+
+CSS Selector:
+tagName[Attribute='Value']
+1.By Id: tagName#firstName
+2.By Class: tagName.elementId   : input.textField      [Note:textField is class value]   input.textField[type='text'][name='user[first_name]']
+3.SubString Matches::- ^-prefix ,$-suffix, *-sub-string
+eg:- input[name$='_name]']         input[name*='_name']
+4.Child or sub-child element:
+form#deorg_form>div[class='horizontal_fields]
+form#deorg_form>div
+
+subchild:form#deorg_form div[class='field_container']
+
+5.Next Sibling: +sign
+option[value='Developer']+option
+
+6.Psudo classes [First child/last child/nth child]
+eg:- select#job_role :last-child, select#job_role :first-child, select#job_role :nth-child(3), select#job_role :nth-last-child(3)
+
+7.First-of-type, last-of-type, nth-of-type()
+select#job_role >option:last-of-type, select#job_role >option:first-of-type, select#job_role >option:nth-of-type(2)
+
+
+WebDriver Methods:
+1.get() 2.getCurrentUrl()  3.manage()  4.getTitle() 5.getPageSource() 6.navigate()  7.quit()  8.close()
+9.findElement()    10.findElements()  11.getWindowHandle() 12.getWindowHandles()  13.sendKeys()  14.clear()  15.getAttribute() 16.getCssValue
+17.getSize  18.getLocation() 19.getTagName() 20.isDisplayed 21.isEnabled() 22.isSelected()  23.getText();
+
+package ui;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.sun.tools.javac.util.List;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+public class DemoClass3 {
+
+	public static void main(String[] args) {
+		//System.setProperty("webdriver.chrome.driver", "C:\\DriverBrowser\\chromedriver.exe");
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver=new ChromeDriver();
+		driver.get("https://www.sugarcrm.com/au/request-demo/");
+		driver.manage().window().maximize(); 	
+		
+		driver.findElement(By.xpath("//*[@id=\"field7\"]/div/input")).sendKeys("Sandip");
+		driver.findElement(By.xpath("//*[@id=\"field7\"]/div/input")).clear();
+		System.out.println(driver.findElement(By.name("firstname")).getAttribute("class"));
+		System.out.println(driver.findElement(By.xpath("//*[@id=\"field1\"]/div/input")).getCssValue("text-transform"));
+		System.out.println(driver.findElement(By.xpath("//*[@id=\"field1\"]/div/input")).getSize());
+		System.out.println(driver.findElement(By.xpath("//*[@id=\"field1\"]/div/input")).getLocation());
+		System.out.println(driver.findElement(By.xpath("//*[@id=\"field1\"]/div/input")).getTagName());
+		System.out.println(driver.findElement(By.xpath("//*[@id=\"field1\"]/div/input")).isDisplayed());
+		System.out.println(driver.findElement(By.xpath("//*[@id=\"field1\"]/div/input")).isEnabled());
+		System.out.println(driver.findElement(By.xpath("//*[@id=\"field1\"]/div/input")).isSelected());
+		System.out.println(driver.findElement(By.xpath("//*[@id=\"field29\"]/label")).getText());
+		driver.close();
+	}
+
+}
+
+Result:
+element-container form-control mb-2
+uppercase
+(183, 49)
+(653, 991)
+input
+true
+true
+false
+Marketing Automation
+
+
+
+Select DropDown:
+
+package ui;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import com.sun.tools.javac.util.List;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+public class DemoClass3 {
+
+	public static void main(String[] args) throws InterruptedException {
+		//System.setProperty("webdriver.chrome.driver", "C:\\DriverBrowser\\chromedriver.exe");
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver=new ChromeDriver();
+		driver.get("https://www.sugarcrm.com/au/request-demo/");
+		driver.manage().window().maximize(); 	
+		
+		WebElement wb=driver.findElement(By.xpath("//*[@id=\"field27\"]/div/select"));
+		Select slect=new Select(wb);
+		slect.selectByValue("level2");
+		Thread.sleep(2000);
+		
+		slect.selectByIndex(4);
+		Thread.sleep(2000);
+		
+		slect.selectByVisibleText("51 - 100 employees");
+		Thread.sleep(2000);
+		driver.close();
+	}
+
+}
+
+
+
+MultiSelect Drop Down:
+
+package ui;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import com.sun.tools.javac.util.List;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+public class DemoClass3 {
+
+	public static void main(String[] args) throws InterruptedException {
+		//System.setProperty("webdriver.chrome.driver", "C:\\DriverBrowser\\chromedriver.exe");
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver=new ChromeDriver();
+		driver.manage().window().maximize(); 	
+		
+		driver.get("https://www.seleniumeasy.com/test/basic-select-dropdown-demo.html");
+		WebElement we= driver.findElement(By.id("multi-select"));
+		Select selectItm=new Select(we);
+		selectItm.selectByValue("California");
+		Thread.sleep(2000);
+		
+		selectItm.selectByIndex(4);
+		Thread.sleep(2000);
+
+		java.util.List<WebElement> lstWeb=selectItm.getAllSelectedOptions();
+		System.out.println(lstWeb);
+		
+		selectItm.deselectAll();
+		Thread.sleep(2000);
+		java.util.List<WebElement> lstWeb1=selectItm.getAllSelectedOptions();
+		System.out.println(lstWeb1);
+		
+		selectItm.selectByValue("California");
+		Thread.sleep(2000);
+		
+		selectItm.selectByIndex(4);
+		Thread.sleep(2000);
+
+		selectItm.deselectByIndex(4);
+		
+	}
+
+}
+
+
+
+Display Links:
+
+package ui;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.sun.tools.javac.util.List;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class DisplayLinks {
+
+	public static void main(String[] args) {
+		// System.setProperty("webdriver.chrome.driver",
+		// "C:\\DriverBrowser\\chromedriver.exe");
+
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		driver.get("https://www.sugarcrm.com/au/request-demo/");
+		driver.manage().window().maximize();
+
+		java.util.List<WebElement> aList = driver.findElementsByTagName("a");
+        System.out.println("Total Links::"+aList.size());
+        
+        for(int i=0;i<aList.size();i++) {
+        	System.out.println("Link are: "+aList.get(i).getAttribute("href"));
+        	System.out.println("Label on Link:"+aList.get(i).getText());
+        }
+		driver.close();
+	}
+
+}
+
+
+
+
+
+
+

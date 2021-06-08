@@ -1,0 +1,154 @@
+Report Generation in TestNg:  (TestNg Documentation:- Logging & Result)  ReferLink for TestNg Report: https://reportng.uncommons.org/
+1.Add the statement in Test Cases by Reporter.log("----");, which help to displaylog the something. but its not displaying execution status.
+  For that we need to add log in Listener methods.
+
+package Common;
+
+import org.testng.Reporter;
+import org.testng.annotations.Test;
+
+public class ReportTest {
+  
+	@Test
+	public void reporterTest1() {
+		System.out.println("This is Test1");
+	}
+	@Test
+	public void reporterTest2() {
+		Reporter.log("This is Test2");
+		System.out.println("This is Test2");
+	}
+	@Test
+	public void reporterTest3() {
+		System.out.println("This is Test3");
+	}
+	@Test
+	public void reporterTest4() {
+		System.out.println("This is Test4");
+	}
+	
+}
+
+
+package Common;
+
+import java.io.IOException;
+
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+
+import ui.ScreenShotDemo;
+
+public class Listeners extends ScreenShotDemo implements ITestListener {
+
+	public void onTestStart(ITestResult result) {
+		Reporter.log("Method Name is-"+result.getName());
+        System.out.println("Test Case is Starting");
+	}
+
+	public void onTestSuccess(ITestResult result) {
+	   Reporter.log("Status of Execution-"+result.getStatus());			
+	}
+
+	public void onTestFailure(ITestResult result) {
+		System.out.println("Test Failed-ScreenShot Captured");
+		try {
+			getScreenShot();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="ReportGeneration">
+<listeners>
+<listener class-name="Common.Listeners"></listener>
+</listeners>
+	<test name="ReportGeneration">
+		<classes>
+			<class name="Common.ReportTest" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
+
+
+Default looking for TEstNg is not looking good. so thats why we are moving the Report plugins.
+
+<a href=\"D:\Eclipse_Workspace\DemoTestNGG\ScreenShot\\-T-u-e- -M-a-y- -2-5- -1-0---2-3---2-1- -I-S-T- -2-0-2-1-.png\">Test Result</a>
+Steps for use ReportNg:
+1.Add ReportNG dependency.
+2.Add ReportNG listener to TestSuite XML.
+If report showing any link text in escape format, then need to use 3rd step
+3.System.setProperty("org.uncommons.reportng.escape-output","false"); in Listener class.
+
+package Common;
+
+import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.Test;
+
+public class ReportTest extends BaseTest{    //Need to extend BaseTest for using get() of driver.
+  
+	@Test
+	public void reporterTest1() {
+		System.out.println("This is Test1");
+		driver.get("https://salesforce.com/");
+		Assert.assertTrue(false);
+	}
+	@Test
+	public void reporterTest2() {
+		Reporter.log("This is Test2");
+		System.out.println("This is Test2");
+	}
+	@Test
+	public void reporterTest3() {
+		System.out.println("This is Test3");
+	}
+	@Test
+	public void reporterTest4() {
+		System.out.println("This is Test4");
+	}
+	
+}
+
+
+package Common;
+
+import java.io.IOException;
+
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+
+import ui.ScreenShotDemo;
+
+public class Listeners extends ScreenShotDemo implements ITestListener {
+
+	public void onTestStart(ITestResult result) {
+		Reporter.log("Method Name is-"+result.getName());
+		System.setProperty("org.uncommons.reportng.title", "Sandip Academy");
+        System.out.println("Test Case is Starting");
+	}
+
+	public void onTestSuccess(ITestResult result) {
+	   Reporter.log("Status of Execution-"+result.getStatus());			
+	}
+
+	public void onTestFailure(ITestResult result) {
+		System.out.println("Test Failed-ScreenShot Captured");
+		try {
+			getScreenShot();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	   System.setProperty("org.uncommons.reportng.escape-output", "false");   //This is used for removing escape from link Text. used this from ReportNG doc.
+       Reporter.log("<a href=\"D:\\Eclipse_Workspace\\DemoTestNGG\\ScreenShot\\Tue-May-25-15-31-34-IST-2021.png\">Test Result</a>");
+	}
+}
+

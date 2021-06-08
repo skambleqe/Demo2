@@ -1,0 +1,91 @@
+package PagesSalesforce;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+//import org.openqa.selenium.support.ui.Select;
+
+public class AccountPage {
+
+	WebDriver ldriver;
+	//Define WebElements
+	@FindBy(xpath="//a[@title='New' and @class='forceActionLink']")
+	WebElement NewBtn;
+	@FindBy(xpath="//input[@name='Name' or @id='input-156']")
+	WebElement AccName;
+	/*@FindBy(name="//input[@id=\"input-162\"][@name='AccountNumber']")
+	WebElement AccNumber;*/
+	@FindBy(xpath="//input[@name='Phone' or @id='input-158']")
+	WebElement phone;
+	//@FindBy(xpath="//*[@id=\"input-145\"]")
+	@FindBy(xpath="/html/body//records-lwc-record-layout[@class='record-layout-container-bottom-padding']//child::input")
+	WebElement ratingList;
+	@FindBy(xpath="//span[@title='Hot' and text()='Hot']")
+	WebElement optHot;
+	@FindBy(xpath="//*[text()='Ownership']//parent::lightning-combobox//child::input")
+	WebElement ownership;
+	@FindBy(xpath="//*[@data-value='Private']")
+	WebElement optPrivate;
+	@FindBy(xpath="//a[@title='Accounts']")
+	WebElement AccountLink;
+	
+	@FindBy(xpath="//button[@name='SaveEdit' and text()='Save']")
+	WebElement SaveBtn;
+	
+	@FindBy(xpath="//*[@name='Account-search-input']")
+	WebElement searchBox;
+	
+	public AccountPage(WebDriver rdriver) {
+		ldriver = rdriver;
+		PageFactory.initElements(rdriver, this);
+	}
+	public void jsClick(WebElement elem) {
+		JavascriptExecutor js = (JavascriptExecutor)ldriver;
+		js.executeScript("arguments[0].click()", elem);
+		try {
+			Thread.sleep(1000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/*public void jsSendKeys(WebElement elem,String val) {
+		JavascriptExecutor js = (JavascriptExecutor)ldriver;
+		js.executeScript("arguments[0].value=val;", elem);
+		try {
+			Thread.sleep(1000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}*/
+	public void newAccount() {
+		jsClick(NewBtn);
+	}
+	public void fillAccount() throws InterruptedException {
+		AccName.sendKeys("SilverMicro Systems");
+		
+		phone.sendKeys("7778986743");
+		//jsSendKeys(phone,"6745578956");
+		Thread.sleep(1000);
+	//For Select Hot option from Rating
+		jsClick(ratingList);
+		jsClick(optHot);
+	//Select Private option from Ownership Picklist
+		jsClick(ownership);
+		jsClick(optPrivate);
+		//AccNumber.sendKeys("6547838767");
+		//jsSendKeys(AccNumber,"67455");
+		Thread.sleep(1000);
+		jsClick(SaveBtn);
+		jsClick(AccountLink);
+	//Search Account
+		jsClick(searchBox);
+		searchBox.clear();
+		searchBox.sendKeys("SilverCloud");
+		jsClick(searchBox);
+	}
+	
+}

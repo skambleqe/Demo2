@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="description" content="TestNG unit test results." />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/reportngClass.css" rel="stylesheet" />
+  <script type="text/javascript" src="js/reportngClass.js"></script>
+  <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script> 
+  <script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+  <script type="text/javascript" src="js/json-min.js"></script>
+  <script type="text/javascript">
+	$(document).ready(function(){
+		$('.tablesorter').tablesorter({sortList: [[0,0]]});
+	});
+  </script>
+</head>
+<body onload="doParse(); return false;" onkeypress="collapseExpand();">
+<div class="well well-large">
+	<b>Test Info</>
+	<table class="table">
+	  <tr>
+	    <th>Test Name : </th>
+	    <th>
+	    	<div class="tooltipCustom">
+	    		<img src="images/copy.png" width="10" height="15" alt="Copy to Clipboard" onclick="copyToClipboard('#testNameId')"/>
+	    		<span class="tooltiptextCustom">Copy Test name</span>
+			</div>
+	    </th>
+	    <th id="testNameId">ReportGeneration</th> 
+	  </tr>
+	  <tr>
+	    <th>Test Class : </th>
+	    <th>
+	    	<div class="tooltipCustom">
+	    		<img src="images/copy.png" width="10" height="15" alt="Copy to Clipboard" onclick="copyToClipboard('#testClassId')"/>
+	    		<span class="tooltiptextCustom">Copy full path Class name</span>
+			</div>
+	    	<div class="tooltipCustom">
+	    		<img src="images/copy.png" width="10" height="15" alt="Copy to Clipboard" onclick="copyToClipboard('#testClassNameId')"/>
+	    		<span class="tooltiptextCustom">Copy Class name</span>
+			</div>
+	    </th> 
+	    <th id="testClassId">Common.ReportTest</th>
+	    <th id="testClassNameId" hidden="true">ReportTest</th>
+	  </tr>
+	  <tr>
+	    <th>Suite Name : </th>
+	    <th>
+	    	<div class="tooltipCustom">
+	    		<img src="images/copy.png" width="10" height="15" alt="Copy to Clipboard" onclick="copyToClipboard('#suiteNameId')"/>
+	    		<span class="tooltiptextCustom">Copy Suite name</span>
+			</div>
+		</th>
+	    <th id="suiteNameId">ReportGeneration</th>
+	  </tr>
+	  <tr>
+	    <th>Suite XML : </th>
+	    <th>
+	    	<div class="tooltipCustom">
+	    		<img src="images/copy.png" width="10" height="15" alt="Copy to Clipboard" onclick="copyToClipboard('#suiteXMLId')"/>
+	    		<span class="tooltiptextCustom">Copy Suite full path name</span>
+			</div>
+	    	<div class="tooltipCustom">
+	    		<img src="images/copy.png" width="10" height="15" alt="Copy to Clipboard" onclick="copyToClipboard('#suiteXMLNameId')"/>
+	    		<span class="tooltiptextCustom">Copy Suite file name</span>
+			</div>
+	    </th> 
+	  	<th id="suiteXMLId">D:\Eclipse_Workspace\DemoTestNGG\src\main\java\Common\ReportGen.xml</th>
+	  	<th id="suiteXMLNameId" hidden="true">ReportGen.xml</th>
+	  </tr>
+	  	  <tr>
+	    <th>Total Time : </th>
+	    <th></th>
+	    <th>00:00:36</th> 
+	  </tr>
+	  <tr>
+	    <th>Total Steps : </th>
+	   	<th></th>
+	    <th>4</th> 
+	  </tr>
+	  <tr>
+	    <th>Status : </th>
+	    <th></th>
+	    <th><font color="red">FAIL</font></th> 
+	  </tr>
+	</table>
+</div>
+<div class="well well-large">
+	<div class="row">
+		<div class="col-xs-12">
+	        <div class="text-right">
+	            <button id="hideResults" type="button" class="btn-danger" onclick="collapseExpand(this);" onkeypress="collapseExpand(this);" class="btn pull-right" title="Click or Press Any key to collapse/expand All Failed Tests and Configuration Methods">Show Only Failures</button>
+	        </div>
+	    </div>
+	</div>
+	<table class="tablesorter" border="1">
+		<thead>
+		<tr>
+		<th class="headerTime">Time</th>
+		<th class="headerTime" width="12%">Info</th>
+		<th class="headerTime" width="88%">Test</th>
+		</tr>
+		</thead>
+		<tbody>
+		
+				
+				
+												
+											<tr>
+	<td class="time">1621939509431</td>
+	<td class="header failed" colspan="4" onClick="toggleElement('487bc5fc-cda4-4b43-88a1-829b16f2848d','block');changeSingleIcon('span-487bc5fc-cda4-4b43-88a1-829b16f2848d');" title="Click to expand/collapse" style="cursor: pointer;">
+	<div style="float:left;"><i>Class&nbsp;:&nbsp;</i>Common.ReportTest</div>
+	<div style="float:right;">@Test @ with DataProvider : [""] &nbsp;&nbsp;<span id='span-487bc5fc-cda4-4b43-88a1-829b16f2848d' class="glyphicon glyphicon-menu-down"></span></div>
+	</td>
+	</tr>
+<tr>
+	<td class="time">1621939509431</td>
+	<td class="methodTest">
+		<span class="description"><b>Method: </b>reporterTest1</span><br>
+			<span class="description"><b>Description: </b></span><br>
+							<span class="duration"><b>Duration: </b>35.255s</span><br>
+	</td>
+	<td class="result">
+						<div class="noCollapse" id="487bc5fc-cda4-4b43-88a1-829b16f2848d" style="display: block;">
+												Method Name is-reporterTest1
+												<a href="D:\Eclipse_Workspace\DemoTestNGG\ScreenShot\Tue-May-25-15-31-34-IST-2021.png">Test Result</a>
+									<a href="javascript:toggleElement('exception-487bc5fc-cda4-4b43-88a1-829b16f2848d','block')" title="Click to expand/collapse"><b>java.lang.AssertionError: expected [true] but found [false]</b></a><br/>
+		<div class="stackTrace" id="exception-487bc5fc-cda4-4b43-88a1-829b16f2848d">
+					org.testng.Assert.fail(Assert.java:99)<br/>
+					org.testng.Assert.failNotEquals(Assert.java:1037)<br/>
+					org.testng.Assert.assertTrue(Assert.java:45)<br/>
+					org.testng.Assert.assertTrue(Assert.java:55)<br/>
+					Common.ReportTest.reporterTest1(ReportTest.java:13)<br/>
+					java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>
+					java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)<br/>
+					java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>
+					java.base/java.lang.reflect.Method.invoke(Method.java:564)<br/>
+					org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)<br/>
+					org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)<br/>
+					org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)<br/>
+					org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)<br/>
+					org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)<br/>
+					org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)<br/>
+					org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)<br/>
+					org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)<br/>
+					java.base/java.util.ArrayList.forEach(ArrayList.java:1511)<br/>
+					org.testng.TestRunner.privateRun(TestRunner.java:794)<br/>
+					org.testng.TestRunner.run(TestRunner.java:596)<br/>
+					org.testng.SuiteRunner.runTest(SuiteRunner.java:377)<br/>
+					org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)<br/>
+					org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)<br/>
+					org.testng.SuiteRunner.run(SuiteRunner.java:276)<br/>
+					org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)<br/>
+					org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)<br/>
+					org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)<br/>
+					org.testng.TestNG.runSuitesLocally(TestNG.java:1134)<br/>
+					org.testng.TestNG.runSuites(TestNG.java:1063)<br/>
+					org.testng.TestNG.run(TestNG.java:1031)<br/>
+					org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)<br/>
+					org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)<br/>
+					org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)<br/>
+						</div>
+		</td>
+	</div>
+</tr>
+						
+				
+												<tr>
+			<td class="time">1621939545590</td>
+			<td class="header passed" colspan="4" onClick="toggleElement('87ed2d7e-4378-438a-8fb8-529ca62e1b2b','block');changeSingleIcon('span-87ed2d7e-4378-438a-8fb8-529ca62e1b2b');" title="Click to expand/collapse" style="cursor: pointer;">
+			<div style="float:left;"><i>Class&nbsp;:&nbsp;</i>Common.ReportTest</div>
+			<div style="float:right;">@Test @ with DataProvider : [""] &nbsp;&nbsp;<span id='span-87ed2d7e-4378-438a-8fb8-529ca62e1b2b' class="glyphicon glyphicon-menu-down"></span></div>
+			</td>
+			</tr>
+			<tr>
+	<td class="time">1621939545590</td>
+	<td class="methodTest">
+		<span class="description"><b>Method: </b>reporterTest2</span><br>
+			<span class="description"><b>Description: </b></span><br>
+							<span class="duration"><b>Duration: </b>0.003s</span><br>
+	</td>
+	<td class="result">
+						<div class="stackTrace" id="87ed2d7e-4378-438a-8fb8-529ca62e1b2b" style="display: block;">
+												Method Name is-reporterTest2
+												This is Test2
+												Status of Execution-1
+								</td>
+	</div>
+</tr>
+						<tr>
+			<td class="time">1621939545608</td>
+			<td class="header passed" colspan="4" onClick="toggleElement('51bd0420-a4be-40af-b4b3-dd2416fed382','block');changeSingleIcon('span-51bd0420-a4be-40af-b4b3-dd2416fed382');" title="Click to expand/collapse" style="cursor: pointer;">
+			<div style="float:left;"><i>Class&nbsp;:&nbsp;</i>Common.ReportTest</div>
+			<div style="float:right;">@Test @ with DataProvider : [""] &nbsp;&nbsp;<span id='span-51bd0420-a4be-40af-b4b3-dd2416fed382' class="glyphicon glyphicon-menu-down"></span></div>
+			</td>
+			</tr>
+			<tr>
+	<td class="time">1621939545608</td>
+	<td class="methodTest">
+		<span class="description"><b>Method: </b>reporterTest4</span><br>
+			<span class="description"><b>Description: </b></span><br>
+							<span class="duration"><b>Duration: </b>0.004s</span><br>
+	</td>
+	<td class="result">
+						<div class="stackTrace" id="51bd0420-a4be-40af-b4b3-dd2416fed382" style="display: block;">
+												Method Name is-reporterTest4
+												Status of Execution-1
+								</td>
+	</div>
+</tr>
+						<tr>
+			<td class="time">1621939545600</td>
+			<td class="header passed" colspan="4" onClick="toggleElement('0a59e2d1-b6ad-48a4-940f-0c1d0c606f25','block');changeSingleIcon('span-0a59e2d1-b6ad-48a4-940f-0c1d0c606f25');" title="Click to expand/collapse" style="cursor: pointer;">
+			<div style="float:left;"><i>Class&nbsp;:&nbsp;</i>Common.ReportTest</div>
+			<div style="float:right;">@Test @ with DataProvider : [""] &nbsp;&nbsp;<span id='span-0a59e2d1-b6ad-48a4-940f-0c1d0c606f25' class="glyphicon glyphicon-menu-down"></span></div>
+			</td>
+			</tr>
+			<tr>
+	<td class="time">1621939545600</td>
+	<td class="methodTest">
+		<span class="description"><b>Method: </b>reporterTest3</span><br>
+			<span class="description"><b>Description: </b></span><br>
+							<span class="duration"><b>Duration: </b>0.004s</span><br>
+	</td>
+	<td class="result">
+						<div class="stackTrace" id="0a59e2d1-b6ad-48a4-940f-0c1d0c606f25" style="display: block;">
+												Method Name is-reporterTest3
+												Status of Execution-1
+								</td>
+	</div>
+</tr>
+					  
+	</tbody>
+	</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [DataFacory]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="DataFacory(failed)">
+    <parameter name="password" value="secret_sauce"/>
+    <parameter name="userName" value="standard_user"/>
+    <parameter name="url" value="https://www.saucedemo.com/"/>
+    <classes>
+      <class name="ui.TestDataFromXml">
+        <methods>
+          <include name="testSwag" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- ui.TestDataFromXml -->
+    </classes>
+  </test> <!-- DataFacory(failed) -->
+</suite> <!-- Failed suite [DataFacory] -->

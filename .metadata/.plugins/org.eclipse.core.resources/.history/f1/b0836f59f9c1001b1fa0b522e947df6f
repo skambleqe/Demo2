@@ -1,0 +1,32 @@
+package PagesSalesforce;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import DemoBaseClass.BaseDemo;
+
+public class LoginPage extends BaseDemo{
+
+	@FindBy(id="username")
+	WebElement userName;
+	
+	@FindBy(id="password")
+	WebElement password;
+	
+	@FindBy(xpath="//*[@id=\"Login\"]")
+	WebElement loginBtn;
+	
+	public LoginPage() {
+		PageFactory.initElements(driver, this);
+	}
+	public void setUserName(String uName) {
+		userName.sendKeys(uName);
+	}
+	public void setPassword(String pwd) {
+		password.sendKeys(pwd);
+	}
+	public void subminLoginBtn() {
+		loginBtn.click();
+	}
+}

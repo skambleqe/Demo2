@@ -1,0 +1,201 @@
+Data Provider: By Data rovider in real simle scenarios we can Fetch set of Data.
+eg:- For Login we can create dataSetup including diff usernames & passwords by DataProvider & test with it.
+1.Create DataProvider method with @DataProvider which provides the test data [object[][]].
+2.Where we need to accet data, we need to represent that method as @Test(dataProvider='methodName').
+
+package ui;
+
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class DataProviderDemo {
+	@Test(dataProvider="dataSet")
+	public void test(String userName, String password) {
+		System.out.println(userName+"======="+password);
+	}
+	
+	@DataProvider
+	public Object[][] dataSet() {
+		Object[][] dataSet = new Object[3][2];
+		dataSet[0][0]="User1";
+		dataSet[0][1]="pass1";
+		
+		dataSet[1][0]="User2";
+		dataSet[1][1]="pass2";
+		
+		dataSet[2][0]="User3";
+		dataSet[2][1]="pass3";
+		
+		return dataSet;
+		
+	}
+	
+	@Test(dataProvider="dataSet1")
+	public void test1(String userName, String password,String Text) {
+		System.out.println(userName+"======="+password+"======="+Text);
+	}
+	
+	@DataProvider
+	public Object[][] dataSet1() {
+				
+		return new Object[][] {
+			{"UseName1","Password1","Test1"},
+			{"UseName2","Password2","Test2"},
+		};
+		
+	}
+}
+
+
+
+Provide set of UserName & assword in to Test Case:
+package ui;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class DataProviderDemo2 {
+		
+	@Test(dataProvider="create")
+	public void test1(String userName, String password) {
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.saucedemo.com/");
+		driver.findElement(By.id("user-name")).sendKeys(userName);
+		driver.findElement(By.id("password")).sendKeys(password);
+		driver.findElement(By.id("login-button")).click();
+		driver.close();
+	}
+	
+	@DataProvider (name="create")
+	public Object[][] dataSet1() {
+				
+		return new Object[][] {
+			{"standard_user","secret_sauce"},
+			{"locked_out_user","secret_sauce"},
+			{"problem_user","secret_sauce"},
+			{"performance_glitch_user","secret_sauce12"}
+		};
+		
+	}
+}
+
+
+DataProvider with seperate file:
+1.Create 1 class for create setup file as a provider: In it,need add (Method m) as argument of setUp method.
+2.Create 1 class for Test cases in which accept test data from setUp file by DataProviderName & DataProviderClass:
+
+eg :setUp Class:
+package ui;
+
+import java.lang.reflect.Method;
+
+import org.testng.annotations.DataProvider;
+
+public class DataProviderDemoMethod {
+		
+	@DataProvider(name="create")
+	public Object[][] dataSet(Method m) {
+		Object[][] testData=null;
+		
+		if(m.getName().equals("test")) {
+			testData= new Object[][] {
+				{"UseName1","Password1"},
+				{"UseName2","Password2"}
+			};
+		}else if(m.getName().equals("test1")){
+			testData = new Object[][] {
+				{"User1","Pass1","Third"},
+				{"User2","Pass2","Third1"},
+				{"User3","Pass3","Third2"},
+				{"User4","Pass4","Third3"}
+			};
+		}
+			
+		return testData;
+	}
+	
+		
+	@DataProvider
+	public Object[][] dataSet1() {
+				
+		return new Object[][] {
+			{"UseName1","Password1","Test1"},
+			{"UseName2","Password2","Test2"},
+		};
+		
+	}
+}
+
+Test case Class:
+package ui;
+
+
+import org.testng.annotations.Test;
+
+public class DataProviderDemo {
+	@Test(dataProvider="create",dataProviderClass=DataProviderDemoMethod.class)
+	public void test(String userName, String password) {
+		System.out.println(userName+"======="+password);
+	}
+	
+		
+	@Test(dataProvider="create",dataProviderClass=DataProviderDemoMethod.class)
+	public void test1(String userName, String password,String Text) {
+		System.out.println(userName+"======="+password+"======="+Text);
+	}
+	
+}
+
+
+Pass Parameter from XML to Test class:
+1.Create class where we want to accept test data from xml with annotation @parameter({"parameterName"}) including parameter in method.
+2.Create TestNg xml suite in which add <parameter> including name & value attribute.
+
+package ui;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class TestDataFromXml {
+
+	@Parameters({"url","userName","password"})
+		
+	@Test
+	public void testSwag(String url,String userName,String password) {
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver= new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get(url);
+		driver.findElement(By.xpath("//*[@id=\"user-name\"]")).sendKeys(userName);
+		driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(password);
+		driver.findElement(By.xpath("//*[@id=\"login-button\"]")).click();
+		driver.close();
+	}
+}
+
+
+XML File[Suite]:
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="DataFacory">
+	<test name="DataFacory">
+		<parameter name="url" value="https://www.saucedemo.com/"></parameter>
+		<parameter name="userName" value="standard_user"></parameter>
+		<parameter name="password" value="secret_sauce"></parameter>
+		<classes>
+			<class name="ui.TestDataFromXml" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
+

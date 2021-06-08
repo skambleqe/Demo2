@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="DataFacory">
+	<test name="DataFacory">
+		<parameter name="url" value="https://www.saucedemo.com/"></parameter>
+		<parameter name="userName" value="standard_user"></parameter>
+		<parameter name="password" value="secret_sauce"></parameter>
+		<classes>
+			<class name="ui.TestDataFromXml" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

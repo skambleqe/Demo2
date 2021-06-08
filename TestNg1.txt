@@ -1,0 +1,197 @@
+Verification Tool:: Earlier use Junit tool which has certain limits.
+TestNg Tool:
+Installation: 3 ways
+1.Install Jar file then add it as dependency.
+2.Add dependency in POM file of Maven Project.
+but both above are only for certain Maven project not for all project.
+3.Install plugins: Help-->Install New Software.
+
+1.BeforeTest(): It executes before executes Test Method. It executes only ones.
+2.AfterTest(): It executes after executes Test Method.
+3.Test() :- Its Test case method which executes based on priority & discrition.
+4.BeforeMethod(): It executes before any Test(). If we have 2 Test(), then Its executes 2 times for both Test().
+5.AfterMethod(): It executes after any Test(). If we have 2 Test(), then Its executes 2 times for both Test().
+
+Assert():
+public class AssertDemo {
+    @Test
+	public void testTitle() {
+		String exectedTitle = "Electronics, Cars, Fashion, Collectibles & More | eBay";
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.ebay.com/");
+		driver.manage().window().maximize(); 	
+		String actualTitle = driver.getTitle();
+		
+		Assert.assertEquals(actualTitle, exectedTitle);
+		driver.close();
+	}
+}
+
+
+SoftAssert Vs Assert[HardAssert]:
+Assert[HardAssert] is not displaying anything after failure. SoftAssert displaying everything from script with Failure message. 
+
+public class AssertDemo {
+    @Test
+	public void testTitle() {
+		String exectedTitle = "Electronics, Cars, Fashion, Collectibles & More | eBay";
+		String expectedText = "Searchtgfh";
+		SoftAssert softAssert= new SoftAssert();
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.ebay.com/");
+		driver.manage().window().maximize(); 	
+		String actualTitle = driver.getTitle();
+		System.out.println("Verifying Title");
+		//Assert.assertEquals(actualTitle, exectedTitle,"Title Verification Failed");
+		softAssert.assertEquals(actualTitle, exectedTitle,"Title Verification Failed");
+		String actualText = driver.findElement(By.xpath("//*[@id=\"gh-btn\"]")).getAttribute("value");
+		System.out.println("Verifying Text");
+		//Assert.assertEquals(actualText, expectedText, "Text Verification Failed");
+		softAssert.assertEquals(actualText, expectedText, "Text Verification Failed");
+		System.out.println("Closing Browser");
+		driver.close();
+		softAssert.assertAll();
+	}
+}
+
+
+How to Handle Group of test Cases:
+Add the the group parameter with @Test like @Test(groups={"regression","bvt"}) & invoke the group of test cases.
+package ui;
+import org.testng.annotations.Test;
+
+public class GroupTestCases {
+ 
+@Test(groups= {"regression","bvt"})
+    public void aTest1() {
+	System.out.println("Test1");
+}
+
+
+Test Suite: <Suite>
+    public void aTest2() {
+	System.out.println("Test2");
+}
+@Test(groups="regression")
+
+	public void aTest3() {
+		System.out.println("Test3");
+	}
+@Test(groups= {"regression","bvt"})
+    public static void aTest4() {
+    	System.out.println("Test4");
+    }
+}
+
+
+
+Test Suite: <suite>
+<suite> is used to executes more than test cases included in more than one Classes.
+eg: If we have test cases in 4 Clss files & we want to executes all Testcases on its, then we can create suite xml with including that classes.
+If we want to executes Test cases for regression groups from 4 classes, then we can add <group> tag for specific group.
+- Also we can create Master Suite & include other suite in it with <suite-file path="./xmlFile.xml> . i.e We can embedded different suites in single <suite>.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="UI Test">
+  <suite-files>
+    <suite-file path="./testng.xml"></suite-file>
+    <suite-file path="./regressions.xml"></suite-file>
+  </suite-files>
+</suite> 
+
+eg2:include groups in suite:
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="UI Test">
+	<groups>
+		<run>
+			<include name="regression" />
+		</run>
+	</groups>
+	<suite-files>
+		<suite-file path="./testng.xml"></suite-file>
+		<suite-file path="./regressions.xml"></suite-file>
+	</suite-files>
+</suite> 
+
+
+Skip the Test Cases: There are 3 ways to skip Test case:
+1.@Test(enable=false)
+2.throw new SkipException("Skipping the Test)
+3.Based on certain condition,we can skip the test case.
+
+package ui;
+import org.testng.SkipException;
+import org.testng.annotations.Test;
+
+public class SkipDemoTest {
+ Boolean dataSetUp=false;
+@Test(enabled=false)
+    public void aTest1() {
+	System.out.println("Skiping the Test as its not complete");
+}
+@Test 
+    public void aTest2() {
+	System.out.println("Skipping this Test Forcefully");
+	throw new SkipException("Skipping this Test");
+}
+@Test
+
+	public void aTest3() {
+		System.out.println("Skipping this Test based on condition");
+		if(dataSetUp==true) {
+			System.out.println("Execute the Test");
+		}
+		else {
+			System.out.println("Do not execute further steps");
+			throw new SkipException("Do not executes further steps");
+		}
+	}
+
+}
+
+
+Annotations:
+1.BeforeGroup :Its executes before any specific group. eg:If we want to executes certain test cases before regression Test cases.
+2.AfterGroup  :Its executes before any specific group. eg:If we want to executes certain test cases before regression Test cases.
+3.BeforeClass :Its Executes before the first test method of class. ex:If we want to setup data for test cases,then we set up that data in @BeforeClass test method.
+4.AfterClass :Its Executes after the last test method of class. ex:If we want to clean up the data, then we will do it in @AfterClass method.
+
+5.BeforSuite & AfterSuite: 
+a.Write a class including @beforeSuite & @AfterSuite method in Common package.
+b.Extends above class in any test cases class & create Suite for that class.
+c.Run the specific Suite.
+package Common;
+
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+
+public class CommonDemo {
+
+	@BeforeSuite
+	public void beforeSuite() {
+		System.out.println("This executes Before Suite");
+	}
+	@AfterSuite
+	public void afterSuite() {
+		System.out.println("This executes After Suite");
+	}
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Befor DemoSuite">
+  <test name="Test">
+    <classes>
+      <class name="ui.GroupTestCases"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
+
+page factory
+
+ToolsQa.com
